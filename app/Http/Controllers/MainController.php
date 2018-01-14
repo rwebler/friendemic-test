@@ -28,7 +28,8 @@ class MainController extends Controller
     public function form(MainFormRequest $request)
     {
         $data = $request->all();
-        $data['photoId'] = Storage::url($request->file('id')->store('ids'));
+        $path = $request->file('id')->store('public');
+        $data['photoId'] = str_replace('public/', '', $path);
         unset($data['_token'], $data['id']);
         session(['data' => $data]);
         return redirect()->action(
@@ -44,6 +45,7 @@ class MainController extends Controller
     public function info()
     {
         $data = session('data');
+        $data['state'] = \App\States::getStateName($data['state']);
         return view('main.info', ['data' => $data]);
     }
 }

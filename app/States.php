@@ -67,4 +67,9 @@ class States
     {
         return array_keys(self::$states);
     }
+
+    public static function getStateName($code)
+    {
+        return isset(self::$states[$code]) ? self::$states[$code] : '';
+    }
 }
