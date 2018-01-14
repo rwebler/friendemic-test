@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MainFormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
@@ -14,7 +15,8 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('main.index');
+        $states = \App\States::get();
+        return view('main.index', ['states' => $states]);
     }
 
     /**
@@ -25,21 +27,23 @@ class MainController extends Controller
      */
     public function form(MainFormRequest $request)
     {
-        //process request data
+        $data = $request->all();
+        $data['photoId'] = Storage::url($request->file('id')->store('ids'));
+        unset($data['_token'], $data['id']);
+        session(['data' => $data]);
         return redirect()->action(
-            'MainController@info',
-            ['data' => $data]
+            'MainController@info'
         );
     }
 
     /**
      * Display the processed form data
      *
-     * @param array $data
      * @return Response
      */
-    public function info(array $data)
+    public function info()
     {
+        $data = session('data');
         return view('main.info', ['data' => $data]);
     }
 }

@@ -14,7 +14,7 @@ Car Rental Form
                 </label>
             </div>
             <div class="md:w-2/3">
-                <input name="full-name" class="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-orange rounded w-full py-2 px-4 text-grey-darker" id="inline-full-name" type="text" placeholder="Jane Doe">
+                <input name="full-name" value="{{ old('full-name') }}" class="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-orange rounded w-full py-2 px-4 text-grey-darker" id="inline-full-name" type="text" placeholder="Jane Doe">
             </div>
         </div>
         <div class="md:flex md:items-center mb-6">
@@ -24,7 +24,7 @@ Car Rental Form
                 </label>
             </div>
             <div class="md:w-2/3">
-                <input name="email" class="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-orange rounded w-full py-2 px-4 text-grey-darker" id="inline-email" type="text" placeholder="janedoe@example.com">
+                <input name="email" value="{{ old('email') }}" class="bg-grey-lighter appearance-none border-2 border-grey-lighter hover:border-orange rounded w-full py-2 px-4 text-grey-darker" id="inline-email" type="text" placeholder="janedoe@example.com">
             </div>
         </div>
         <div class="md:flex md:items-center mb-6">
@@ -46,9 +46,9 @@ Car Rental Form
             <div class="md:w-2/3">
                 <div class="relative">
                     <select name="state" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded" id="inline-state">
-                        <option>New Mexico</option>
-                        <option>Missouri</option>
-                        <option>Texas</option>
+                        @foreach ($states as $code => $name)
+                            <option value="{{ $code }}" @if (old('state') == $code) selected @endif>{{ $name }}</option>
+                        @endforeach
                     </select>
                     <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -59,7 +59,7 @@ Car Rental Form
         <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3"></div>
             <label class="md:w-2/3 block text-grey font-bold">
-                <input class="mr-2" type="checkbox" name="newsletter-signup">
+                <input class="mr-2" type="checkbox" name="newsletter-signup" value="1">
                 <span class="text-sm">
                     Send me your newsletter!
                 </span>

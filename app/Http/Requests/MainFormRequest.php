@@ -26,7 +26,7 @@ class MainFormRequest extends FormRequest
         return [
             'full-name' => 'required|string',
             'email' => 'required|email',
-            'id' => 'required|image|size:1000',
+            'id' => 'required|image|max:1024',
             'state' => 'required|in:'.implode(',', \App\States::getCodes()),
             'newsletter-signup' => 'nullable|boolean',
         ];
