@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController@index')->name('main.index');
+Route::post('/form', 'MainController@form')->name('main.form');
+Route::get('/info', 'MainController@info')->name('main.info');
