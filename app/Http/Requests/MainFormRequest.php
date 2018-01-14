@@ -24,7 +24,30 @@ class MainFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'full-name' => 'required|string',
+            'email' => 'required|email',
+            'id' => 'required|image|size:1000',
+            'state' => 'required|in:'.implode(',', \App\States::getCodes()),
+            'newsletter-signup' => 'nullable|boolean',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'full-name.required' => 'A full name is required.',
+            'full-name.string' => 'The full name must be expressed in words.',
+            'email.*' => 'A valid email address is required.',
+            'id.required' => 'An ID image is required.',
+            'id.image' => 'The ID must be an image file.',
+            'id.size' => 'The ID file size must be 1MB or less',
+            'state.*' => 'An US State is required as a pick up place.',
+            'newsletter-signup' => 'Select the checkbox if you want to receive our newsletter.',
         ];
     }
 }
