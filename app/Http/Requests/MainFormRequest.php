@@ -50,4 +50,14 @@ class MainFormRequest extends FormRequest
             'newsletter-signup' => 'Select the checkbox if you want to receive our newsletter.',
         ];
     }
+
+    public function getSanitizedData()
+    {
+        $data = $this->all();
+        $path = $this->file('id')->store('public');
+        $data['photoId'] = str_replace('public/', '', $path);
+        unset($data['_token'], $data['id']);
+
+        return $data;
+    }
 }

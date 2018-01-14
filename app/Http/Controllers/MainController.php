@@ -27,10 +27,7 @@ class MainController extends Controller
      */
     public function form(MainFormRequest $request)
     {
-        $data = $request->all();
-        $path = $request->file('id')->store('public');
-        $data['photoId'] = str_replace('public/', '', $path);
-        unset($data['_token'], $data['id']);
+        $data = $request->getSanitizedData();
         session(['data' => $data]);
         return redirect()->action(
             'MainController@info'
